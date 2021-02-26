@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ ! -d ./vendor ]
+then
+    composer install
+fi
+if [ -f .env ]
+then
+    php artisan key:generate
+else
+    cp .env.example .env && php artisan key:generate
+fi
+php artisan migrate:fresh --seed && php artisan passport:install --force
