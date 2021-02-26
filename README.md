@@ -8,6 +8,28 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Laravel restfull api
+
+Aplikasi web service yang di bangun dengan framework laravel,
+authentikasi menggunakan passport.
+Untuk perizinan menggunaka Spatie/laravel-permission.
+
+## Cara install
+
+1. Buat database baru, kalo sudah ada lanjut ke no 2
+2. Clone project ini
+``` bash
+git clone https://github.com/curink/lara-api.git
+```
+3. 
+``` bash
+cd lara-api
+```
+4. 
+``` bash
+sh install
+```
+
 ## License
 
 The Laravel api is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
