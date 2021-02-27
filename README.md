@@ -31,16 +31,16 @@ sh install
 ```
 
 
-# Account
+### Account
 email: admin@example.com
 password: 00000000
 
-# Role
+### Role
 super-admin
 admin
 kasir
 
-# Permission
+### Permission
 user-list
 user-detail
 user-create
