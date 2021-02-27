@@ -32,22 +32,23 @@ sh install
 
 
 ### Account
-email: admin@example.com
+email: admin@example.com<br>
 password: 00000000
 
 ### Role
-super-admin
-admin
+super-admin<br>
+admin<br>
 kasir
 
 ### Permission
-user-list
-user-detail
-user-create
-user-update
-user-delete
+user-list<br>
+user-detail<br>
+user-create<br>
+user-update<br>
+user-delete<br>
 update-password
 
 ## License
 
 The Laravel api is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
