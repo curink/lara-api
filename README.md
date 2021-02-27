@@ -30,6 +30,24 @@ cd lara-api
 sh install
 ```
 
+
+# Account
+email: admin@example.com
+password: 00000000
+
+# Role
+super-admin
+admin
+kasir
+
+# Permission
+user-list
+user-detail
+user-create
+user-update
+user-delete
+update-password
+
 ## License
 
 The Laravel api is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
