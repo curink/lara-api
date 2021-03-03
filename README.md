@@ -16,18 +16,14 @@ Untuk perizinan menggunaka Spatie/laravel-permission.
 
 ## Cara install
 
-1. Buat database baru, kalo sudah ada lanjut ke no 2
+1. Buat database baru
 2. Clone project ini
 ``` bash
-git clone https://github.com/curink/lara-api.git
-```
-3. 
-``` bash
-cd lara-api
-```
-4. 
-``` bash
-sh install
+$ git clone https://github.com/curink/lara-api.git
+
+$ cd lara-api
+
+$ sh install
 ```
 
 
