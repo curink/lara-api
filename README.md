@@ -41,8 +41,7 @@ user-list<br>
 user-detail<br>
 user-create<br>
 user-update<br>
-user-delete<br>
-update-password
+set-role
 
 ## License
 
