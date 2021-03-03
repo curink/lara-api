@@ -16,9 +16,8 @@ class UserController extends Controller
         $this->middleware('permission:user-list|user-detail|user-create|user-update|user-delete|update-password', ['only' => ['index']]);
         $this->middleware('permission:user-detail', ['only' => ['show']]);
         $this->middleware('permission:user-create', ['only' => ['store']]);
-        $this->middleware('permission:user-update', ['only' => ['updateAdmin']]);
-        $this->middleware('permission:update-password', ['only' => ['updatePasswordAdmin']]);
-        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:user-update', ['only' => ['update']]);
+        $this->middleware('permission:set-role', ['only' => ['setRole']]);
     }
 
     public function index()
@@ -36,7 +35,6 @@ class UserController extends Controller
         return $this->success(new UserResource($user), 'User retrieved');
     }
 
-    // Khusus super-admin
     public function update(Request $request, User $user)
     {
         $user->update([
@@ -44,36 +42,6 @@ class UserController extends Controller
             'email' => $request->email
         ]);
         return $this->success(new UserResource($user), 'User updated');
-    }
-
-    public function updateAuth(Request $request)
-    {
-        $user = User::findOrFail(auth()->user()->id);
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email
-        ]);
-        return $this->success(new UserResource($user), 'Info updated');
-    }
-
-    // Khusus super-admin
-    public function updatePassword(Request $request, User $user)
-    {
-        $user->update(['password' => $request->password]);
-        return $this->success(new UserResource($user), 'Password updated');
-    }
-
-    public function updatePasswordAuth(Request $request)
-    {
-        $user = User::findOrFail(auth()->user()->id);
-        $user->update(['password' => $request->password]);
-        return $this->success(new UserResource($user), 'Password updated');
-    }
-
-    public function destroy(User $user)
-    {
-        $user->delete();
-        return $this->success(new UserResource($user), 'User deleted');
     }
 
     public function setRole(Request $request, User $user)

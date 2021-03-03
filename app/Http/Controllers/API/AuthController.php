@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\BaseController as Controller;
 use Illuminate\Http\Request;
+use App\Http\Resources\AuthResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -43,6 +44,11 @@ class AuthController extends Controller
         else{ 
             return $this->error('Unauthorized.', ['error'=>'Unauthorized'], 401);
         }
+    }
+
+    public function show()
+    {
+        return $this->success(new AuthResource(User::findOrFail(auth()->id())), 'Profile information retrieved');
     }
 
     public function logout(Request $request)

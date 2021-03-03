@@ -16,11 +16,13 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        $faker = \Faker\Factory::create('id_ID');
         $admin = User::create([
-            'nik' => mt_rand(000000000000000,999999999999999),
-            'name' => 'Admin',
-            'address' => 'Bogor',
-            'email' => 'admin@example.com',
+            'nik' => $faker->nik(),
+            'name' => $faker->name(),
+            'address' => $faker->address(),
+            'email' => 'curink@gmail.com',
+            'phone' => $faker->phoneNumber(),
             'email_verified_at' => now(),
             'password' => '00000000',
             'remember_token' => Str::random(10),
@@ -34,8 +36,7 @@ class UserSeeder extends Seeder
             'user-detail',
             'user-create',
             'user-update',
-            'user-delete',
-            'update-password'
+            'set-role',
         ];
         foreach($permissions as $permission){
             Permission::create(['name' => $permission, 'guard_name' => 'api']);

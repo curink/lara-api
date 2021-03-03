@@ -4,6 +4,11 @@ namespace App\Traits;
 
 trait FormatDates
 {
+    public function getEmailVerifiedAtAttribute($value)
+    {
+        return \Carbon\Carbon::parse($value)->format('d-m-Y H:i:s');
+    }
+
     public function getCreatedAtAttribute($value)
     {
         return \Carbon\Carbon::parse($value)->format('d-m-Y H:i:s');
