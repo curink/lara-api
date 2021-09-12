@@ -18,12 +18,15 @@ class UserRequest extends FormRequest
             $rules = [
                 'name' => 'required',
                 'email' => 'required|email|unique:users,email',
+                'phone' => 'required|unique:users,phone',
                 'password' => 'required|min:8'
             ];
         }
         else if($this->route()->getActionMethod() == 'update')
         {
             $rules = [
+                'fhoto' => '',
+                'nik' => 'unique:users,nik',
                 'name' => 'required',
                 'email' => 'required|email|unique:users,email,'.$this->user->id
             ];
@@ -45,7 +48,7 @@ class UserRequest extends FormRequest
         else if($this->route()->getActionMethod() == 'setRole')
         {
             $rules = [
-                'role' => 'required',
+                'role' => 'required|exists:roles,name',
             ];
         }
         return $rules;

@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 
 class BaseController extends Controller
 {
-    public function success($result, $message)
+    public function success($result, $message, $code = 200)
     {
     	$response = [
-            'data'    => $result,
             'success' => true,
-            'message' => $message.' successfully.',
+            'message' => $message,
+            'data'    => $result,
         ];
-        return response()->json($response, 200);
+        return response()->json($response, $code);
     }
 
     public function error($error, $errorMessages = [], $code = 404)

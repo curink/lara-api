@@ -14,8 +14,8 @@ class AddToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('fhotos')->nullable()->after('id');
-            $table->bigInteger('nik')->nullable()->after('fhotos');
+            $table->string('fhoto')->nullable()->after('id');
+            $table->bigInteger('nik')->nullable()->after('fhoto');
             $table->string('address')->nullable()->after('name');
             $table->string('phone')->unique()->after('email');
         });
@@ -29,7 +29,7 @@ class AddToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['fhotos','nik','address','phone']);
+            $table->dropColumn(['fhoto','nik','address','phone']);
         });
     }
 }

@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'nik' => $faker->nik(),
             'name' => $faker->name(),
             'address' => $faker->address(),
-            'email' => 'curink@gmail.com',
+            'email' => 'admin@example.com',
             'phone' => $faker->phoneNumber(),
             'email_verified_at' => now(),
             'password' => '00000000',
@@ -35,8 +35,7 @@ class UserSeeder extends Seeder
             'user-list',
             'user-detail',
             'user-create',
-            'user-update',
-            'set-role',
+            'user-update'
         ];
         foreach($permissions as $permission){
             Permission::create(['name' => $permission, 'guard_name' => 'api']);

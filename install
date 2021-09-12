@@ -13,4 +13,4 @@ else
     read -p 'Database name: ' database
     sed -i "s/^DB_DATABASE=.*/DB_DATABASE=${database}/" .env
 fi
-php artisan migrate:fresh --seed && php artisan passport:install --force
+php artisan migrate:fresh --seed && php artisan passport:install --force && php artisan l5-swagger:generate
