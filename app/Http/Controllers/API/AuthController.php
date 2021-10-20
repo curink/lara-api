@@ -48,7 +48,8 @@ class AuthController extends Controller
      *      in="query",
      *      required=true,
      *      @OA\Schema(
-     *          type="string"
+     *          type="string",
+     *          format="password"
      *      )
      *   ),
      *   @OA\Parameter(
@@ -56,7 +57,8 @@ class AuthController extends Controller
      *      in="query",
      *      required=true,
      *      @OA\Schema(
-     *          type="string"
+     *          type="string",
+     *          format="password"
      *      )
      *   ),
      *   @OA\Response(
@@ -71,17 +73,9 @@ class AuthController extends Controller
      *       description="Unauthenticated"
      *   ),
      *   @OA\Response(
-     *      response=400,
-     *      description="Bad Request"
-     *   ),
-     *   @OA\Response(
-     *      response=404,
-     *      description="not found"
-     *   ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
+     *      response=422,
+     *      description="Unprocessable entity"
+     *   )
      *)
      **/
     public function register(Request $request)
@@ -99,7 +93,7 @@ class AuthController extends Controller
         }
 
         $user = User::create($request->all());
-        $success['token'] =  'Bearer '.$user->createToken('MyApp')->accessToken;
+        $success['token'] =  $user->createToken('MyApp')->accessToken;
         $success['name'] =  $user->name;
 
         return $this->success($success, 'User registered successfully.');
@@ -141,23 +135,15 @@ class AuthController extends Controller
      *       description="Unauthenticated"
      *   ),
      *   @OA\Response(
-     *      response=400,
-     *      description="Bad Request"
-     *   ),
-     *   @OA\Response(
-     *      response=404,
-     *      description="not found"
-     *   ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
+     *      response=422,
+     *      description="Unprocessable entity"
+     *   )
      *)
      **/
     public function login(Request $request)
     {
         $valid = Validator::make($request->all(), [
-            'email' => 'required|email',
+            'email' => 'required|email|exists:users,email',
             'password' => 'required'
         ]);
         if($valid->fails())
@@ -168,7 +154,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         if(Auth::attempt($credentials, true)){
             $user = Auth::user(); 
-            $success['token'] =  'Bearer '.$user->createToken('MyApp')-> accessToken; 
+            $success['token'] =  $user->createToken('MyApp')-> accessToken; 
             $success['name'] =  $user->name;
             return $this->success($success, 'User login successfully.');
         } 
@@ -182,11 +168,11 @@ class AuthController extends Controller
      *    path="/profile",
      *    operationId="getDetailUserLogin",
      *    tags={"Users"},
+     *    summary="Get detail of user login",
+     *    description="Returns detail of user login",
      *    security={
      *        {"passport": {}},
      *    },
-     *    summary="Get detail of user login",
-     *    description="Returns detail of user login",
      *    @OA\Response(
      *        response=200,
      *        description="Successful operation",
@@ -197,24 +183,12 @@ class AuthController extends Controller
      *    @OA\Response(
      *        response=401,
      *        description="Unauthenticated",
-     *    ),
-     *    @OA\Response(
-     *        response=403,
-     *        description="Forbidden"
-     *    ),
-     *    @OA\Response(
-     *        response=400,
-     *        description="Bad Request"
-     *    ),
-     *    @OA\Response(
-     *        response=404,
-     *        description="not found"
-     *   ),
+     *    )
      * )
      **/
     public function show()
     {
-        return $this->success(new AuthResource(User::findOrFail(auth()->id())), 'Profile information retrieved.');
+        return $this->success(User::findOrFail(auth()->id()), 'Profile information retrieved.');
     }
 
     /**

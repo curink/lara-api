@@ -16,6 +16,7 @@ class RoleController extends Controller
      *    operationId="getRolesList",
      *    tags={"Roles & Permissions"},
      *    summary="Get list of Roles",
+     *    description="Required super-admin",
      *    security={
      *        {"passport": {}},
      *    },
@@ -47,6 +48,7 @@ class RoleController extends Controller
      *    operationId="addRole",
      *    tags={"Roles & Permissions"},
      *    summary="Add Role",
+     *    description="Required super-admin",
      *    security={
      *        {"passport": {}},
      *    },
@@ -95,6 +97,7 @@ class RoleController extends Controller
      *    operationId="deleteRole",
      *    tags={"Roles & Permissions"},
      *    summary="Delete role",
+     *    description="Required super-admin",
      *    security={
      *        {"passport": {}},
      *    },
@@ -140,6 +143,7 @@ class RoleController extends Controller
      *    operationId="getPermissionList",
      *    tags={"Roles & Permissions"},
      *    summary="Get list of Permissions",
+     *    description="Required super-admin",
      *    security={
      *        {"passport": {}},
      *    },
@@ -171,6 +175,7 @@ class RoleController extends Controller
      *    operationId="getRoleHasPermission",
      *    tags={"Roles & Permissions"},
      *    summary="Get role has permissions",
+     *    description="Required super-admin",
      *    security={
      *        {"passport": {}},
      *    },
@@ -217,6 +222,7 @@ class RoleController extends Controller
      *    operationId="setRolePermission",
      *    tags={"Roles & Permissions"},
      *    summary="Set role permissions",
+     *    description="Required super-admin",
      *    security={
      *        {"passport": {}},
      *    },
@@ -230,7 +236,7 @@ class RoleController extends Controller
      *        )
      *    ),
      *    @OA\Parameter(
-     *        name="permission",
+     *        name="permission[]",
      *        in="query",
      *        required=true,
      *        description="Permissions name",

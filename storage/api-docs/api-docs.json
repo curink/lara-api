@@ -56,7 +56,8 @@
                         "in": "query",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "format": "password"
                         }
                     },
                     {
@@ -64,7 +65,8 @@
                         "in": "query",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "format": "password"
                         }
                     }
                 ],
@@ -78,14 +80,8 @@
                     "401": {
                         "description": "Unauthenticated"
                     },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "not found"
-                    },
-                    "403": {
-                        "description": "Forbidden"
+                    "422": {
+                        "description": "Unprocessable entity"
                     }
                 }
             }
@@ -126,14 +122,8 @@
                     "401": {
                         "description": "Unauthenticated"
                     },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "not found"
-                    },
-                    "403": {
-                        "description": "Forbidden"
+                    "422": {
+                        "description": "Unprocessable entity"
                     }
                 }
             }
@@ -155,15 +145,6 @@
                     },
                     "401": {
                         "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "not found"
                     }
                 },
                 "security": [
@@ -204,6 +185,7 @@
                     "Roles & Permissions"
                 ],
                 "summary": "Get list of Roles",
+                "description": "Required super-admin",
                 "operationId": "getRolesList",
                 "responses": {
                     "200": {
@@ -230,6 +212,7 @@
                     "Roles & Permissions"
                 ],
                 "summary": "Add Role",
+                "description": "Required super-admin",
                 "operationId": "addRole",
                 "parameters": [
                     {
@@ -271,6 +254,7 @@
                     "Roles & Permissions"
                 ],
                 "summary": "Delete role",
+                "description": "Required super-admin",
                 "operationId": "deleteRole",
                 "parameters": [
                     {
@@ -313,6 +297,7 @@
                     "Roles & Permissions"
                 ],
                 "summary": "Get list of Permissions",
+                "description": "Required super-admin",
                 "operationId": "getPermissionList",
                 "responses": {
                     "200": {
@@ -341,6 +326,7 @@
                     "Roles & Permissions"
                 ],
                 "summary": "Get role has permissions",
+                "description": "Required super-admin",
                 "operationId": "getRoleHasPermission",
                 "parameters": [
                     {
@@ -381,6 +367,7 @@
                     "Roles & Permissions"
                 ],
                 "summary": "Set role permissions",
+                "description": "Required super-admin",
                 "operationId": "setRolePermission",
                 "parameters": [
                     {
@@ -393,7 +380,7 @@
                         }
                     },
                     {
-                        "name": "permission",
+                        "name": "permission[]",
                         "in": "query",
                         "description": "Permissions name",
                         "required": true,
@@ -437,6 +424,7 @@
                     "Users"
                 ],
                 "summary": "Get list of user accounts",
+                "description": "Required super-admin only by default",
                 "operationId": "getUserList",
                 "responses": {
                     "200": {
@@ -463,6 +451,7 @@
                     "Users"
                 ],
                 "summary": "Add user account",
+                "description": "Required super-admin only by default",
                 "operationId": "addUser",
                 "parameters": [
                     {
@@ -529,6 +518,7 @@
                     "Users"
                 ],
                 "summary": "Get user account by user id",
+                "description": "Required super-admin only by default",
                 "operationId": "getUser",
                 "parameters": [
                     {
@@ -565,6 +555,7 @@
                     "Users"
                 ],
                 "summary": "Update user account by user id",
+                "description": "Required super-admin only by default",
                 "operationId": "UpdateUser",
                 "parameters": [
                     {
@@ -576,9 +567,30 @@
                         }
                     },
                     {
+                        "name": "fhoto",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "nik",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
                         "name": "name",
                         "in": "query",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
                         "schema": {
                             "type": "string"
                         }
@@ -598,17 +610,31 @@
                         "schema": {
                             "type": "number"
                         }
-                    },
-                    {
-                        "name": "password",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "password"
-                        }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "file"
+                                ],
+                                "properties": {
+                                    "additionalMetadata": {
+                                        "description": "Additional data to pass to server",
+                                        "type": "string"
+                                    },
+                                    "file": {
+                                        "description": "file to upload",
+                                        "type": "string",
+                                        "format": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -639,6 +665,7 @@
                     "Users"
                 ],
                 "summary": "Set role for user account by user id",
+                "description": "Required super-admin only by default",
                 "operationId": "SetRoleUser",
                 "parameters": [
                     {

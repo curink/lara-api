@@ -18,6 +18,7 @@ class AddToUsersTable extends Migration
             $table->bigInteger('nik')->nullable()->after('fhoto');
             $table->string('address')->nullable()->after('name');
             $table->string('phone')->unique()->after('email');
+            $table->softDeletes();
         });
     }
 
@@ -30,6 +31,7 @@ class AddToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn(['fhoto','nik','address','phone']);
+            $table->dropSoftDeletes();
         });
     }
 }

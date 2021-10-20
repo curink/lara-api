@@ -1,13 +1,14 @@
 ## Restfull api
 
-Aplikasi web service yang di bangun dengan framework [laravel 8](https://laravel.com).
+Aplikasi web service yang di bangun dengan framework [laravel 8](https://laravel.com).<br>
+API documentation http://localhost:8000/api/documentation
 
 Current include:
 * [Passport](https://github.com/laravel/passport)
 * [Laravel permission](https://github.com/spatie/laravel-permission)
 * [Swagger](https://github.com/DarkaOnLine/L5-Swagger)
 
-## Cara install
+### Cara install
 
 * Buat database baru
 * Clone project ini
@@ -34,7 +35,7 @@ $ sh install
 * user-create
 * user-update
 
-## License
+### License
 
 The Laravel api is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 

@@ -22,7 +22,7 @@ class AuthResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'address' => $this->address,
-            'verified' => $this->email_verified_at == null ? false : true
+            'verified' => $this->email_verified_at
         ];
     }
 }

@@ -25,6 +25,7 @@ class UserController extends Controller
      *    operationId="getUserList",
      *    tags={"Users"},
      *    summary="Get list of user accounts",
+     *    description="Required super-admin only by default",
      *    security={
      *        {"passport": {}},
      *    },
@@ -47,7 +48,8 @@ class UserController extends Controller
      **/
     public function index()
     {
-        return $this->success(new UserCollection(User::paginate(20)), 'Users retrieved Successfully.');
+        $data = User::paginate(20);
+        return $this->success(new UserCollection($data), 'Users retrieved Successfully.');
     }
 
     /**
@@ -56,6 +58,7 @@ class UserController extends Controller
      *    operationId="addUser",
      *    tags={"Users"},
      *    summary="Add user account",
+     *    description="Required super-admin only by default",
      *    security={
      *        {"passport": {}},
      *    },
@@ -124,6 +127,7 @@ class UserController extends Controller
      *    operationId="getUser",
      *    tags={"Users"},
      *    summary="Get user account by user id",
+     *    description="Required super-admin only by default",
      *    security={
      *        {"passport": {}},
      *    },
@@ -163,6 +167,7 @@ class UserController extends Controller
      *    operationId="UpdateUser",
      *    tags={"Users"},
      *    summary="Update user account by user id",
+     *    description="Required super-admin only by default",
      *    security={
      *        {"passport": {}},
      *    },
@@ -174,12 +179,52 @@ class UserController extends Controller
      *            type="integer"
      *        )
      *    ),
+     *    @OA\RequestBody(
+     *        @OA\MediaType(
+     *            mediaType="multipart/form-data",
+     *            @OA\Schema(
+     *                @OA\Property(
+     *                    description="Additional data to pass to server",
+     *                    property="additionalMetadata",
+     *                    type="string"
+     *                ),
+     *                @OA\Property(
+     *                    description="file to upload",
+     *                    property="file",
+     *                    type="string",
+     *                    format="file",
+     *                ),
+     *                required={"file"}
+     *            ),
+     *        ),
+     *    ),
+     *    @OA\Parameter(
+     *        name="fhoto",
+     *        in="query",
+     *        @OA\Schema(
+     *            type="string"
+     *        )
+     *    ),
+     *    @OA\Parameter(
+     *        name="nik",
+     *        in="query",
+     *        @OA\Schema(
+     *            type="integer"
+     *        )
+     *    ),
      *    @OA\Parameter(
      *        name="name",
      *        in="query",
      *        required=true,
      *        @OA\Schema(
      *            type="string"
+     *        )
+     *    ),
+     *    @OA\Parameter(
+     *        name="address",
+     *        in="query",
+     *        @OA\Schema(
+     *            type="string",
      *        )
      *    ),
      *    @OA\Parameter(
@@ -196,15 +241,6 @@ class UserController extends Controller
      *        required=true,
      *        @OA\Schema(
      *            type="number"
-     *        )
-     *    ),
-     *    @OA\Parameter(
-     *        name="password",
-     *        in="query",
-     *        required=true,
-     *        @OA\Schema(
-     *            type="string",
-     *            format="password"
      *        )
      *    ),
      *    @OA\Response(
@@ -230,14 +266,17 @@ class UserController extends Controller
      **/
     public function update(Request $request, User $user)
     {
-        /*if($request->foto != ''){
-            
-        }*/
+        /*
         $user->update([
+            'fhoto' => $request->fhoto,
+            'nik' => $request->nik,
             'name' => $request->name,
-            'email' => $request->email
+            'address' => $request->address,
+            'email' => $request->email,
+            'phone' => $request->phone
         ]);
-        return $this->success(new UserResource($user), 'User updated Successfully.');
+        return $this->success(new UserResource($user), 'User updated Successfully.');*/
+        print_r($request->all());
     }
 
     /**
@@ -246,6 +285,7 @@ class UserController extends Controller
      *    operationId="SetRoleUser",
      *    tags={"Users"},
      *    summary="Set role for user account by user id",
+     *    description="Required super-admin only by default",
      *    security={
      *        {"passport": {}},
      *    },
@@ -264,7 +304,7 @@ class UserController extends Controller
      *        required=true,
      *        description="(Role name)",
      *        @OA\Schema(
-     *            type="string"
+     *            type="string",
      *        )
      *    ),
      *    @OA\Response(

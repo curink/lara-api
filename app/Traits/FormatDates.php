@@ -6,21 +6,21 @@ trait FormatDates
 {
     public function getEmailVerifiedAtAttribute($value)
     {
-        return \Carbon\Carbon::parse($value)->format('d-m-Y H:i:s');
+        return is_null($value) ? null : \Carbon\Carbon::parse($value)->format('d-m-Y H:i:s');
     }
 
     public function getCreatedAtAttribute($value)
     {
-        return \Carbon\Carbon::parse($value)->format('d-m-Y H:i:s');
+        return is_null($value) ? null : \Carbon\Carbon::parse($value)->format('d-m-Y H:i:s');
     }
 
     public function getUpdatedAtAttribute($value)
     {
-        return \Carbon\Carbon::parse($value)->format('d-m-Y H:i:s');
+        return is_null($value) ? null : \Carbon\Carbon::parse($value)->format('d-m-Y H:i:s');
     }
 
-    public function getDeletedAtAttribute($value)
+    /*public function getDeletedAtAttribute($value)
     {
-        return \Carbon\Carbon::parse($value)->format('d-m-Y H:i:s');
-    }
+        return is_null($value) ? null : \Carbon\Carbon::parse($value)->format('d-m-Y H:i:s');
+    }*/
 }

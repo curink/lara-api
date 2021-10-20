@@ -10,3 +10,7 @@ Route::get('/', function () {
         'time' => date_format(now(), 'd-m-Y H:i:s')
     ]);
 });
+
+Route::get('user/{id}', function() {
+    return view('test');
+});

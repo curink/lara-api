@@ -25,10 +25,11 @@ class UserRequest extends FormRequest
         else if($this->route()->getActionMethod() == 'update')
         {
             $rules = [
-                'fhoto' => '',
+                'fhoto' => 'image|file|max:2084',
                 'nik' => 'unique:users,nik',
                 'name' => 'required',
-                'email' => 'required|email|unique:users,email,'.$this->user->id
+                'email' => 'required|email|unique:users,email,'.$this->user->id,
+                'phone' => 'unique:users,phone'
             ];
         }
         else if($this->route()->getActionMethod() == 'updateAuth')
@@ -48,7 +49,7 @@ class UserRequest extends FormRequest
         else if($this->route()->getActionMethod() == 'setRole')
         {
             $rules = [
-                'role' => 'required|exists:roles,name',
+                'role' => 'required',
             ];
         }
         return $rules;
